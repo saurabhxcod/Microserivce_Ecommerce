@@ -4,7 +4,7 @@ const {publishMessage} = require('../utils/rabbitMQ');
 // const Product = require("../../product-service/model/Product");
 
 const placeOrder = async (req, res) => {
-    const {userId, products} = req.body;
+    const { products } = req.body;
     try {
         let totalAmount = 0;
         const orderProducts = [];
@@ -27,17 +27,19 @@ const placeOrder = async (req, res) => {
             });
         }
         const newOrder = new Order({
-            userId,
+            userId: req.user.id,
             products: orderProducts,
             totalAmount
         });
         await newOrder.save();
 
         // Publish order to RabbitMQ
-        
         await publishMessage('orderQueue', {
+            type: 'ORDER_RESULT',
+            status: 'SUCCESS',
             orderId: newOrder._id,
             userId: newOrder.userId,
+            userEmail: req.user.email,
             products: newOrder.products,
             totalAmount: newOrder.totalAmount
         });
@@ -45,6 +47,17 @@ const placeOrder = async (req, res) => {
         res.status(201).json({message: 'Order placed successfully...', order: newOrder});
     } catch (error) {
         console.log("Error while placing order:",error);
+        try {
+            await publishMessage('orderQueue', {
+                type: 'ORDER_RESULT',
+                status: 'FAILURE',
+                reason: error.message,
+                userId: req.user?.id,
+                userEmail: req.user?.email
+            });
+        } catch (pubErr) {
+            console.error('Failed to publish failure event:', pubErr.message);
+        }
         res.status(500).json({message: 'Failed to place order', error});
     }
 }

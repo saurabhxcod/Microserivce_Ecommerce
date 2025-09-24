@@ -12,9 +12,29 @@ connectDB();
 
 app.use(express.json());
 
-async function notifyUser(order) {
-  console.log("User service received order:", order);
-  // Mail to user
+const { sendMail } = require('./utils/mailer');
+
+async function notifyUser(message) {
+  console.log("User service received order:", message);
+  if (message.type === 'ORDER_RESULT') {
+    const subject = message.status === 'SUCCESS' ? 'Your order was placed successfully' : 'Your order failed';
+    const text = message.status === 'SUCCESS'
+      ? `Order ${message.orderId} placed successfully. Total: ${message.totalAmount}`
+      : `Order failed. Reason: ${message.reason || 'Unknown error'}`;
+    const html = message.status === 'SUCCESS'
+      ? `<p>Order <strong>${message.orderId}</strong> placed successfully.</p><p>Total: <strong>${message.totalAmount}</strong></p>`
+      : `<p>Order failed.</p><p>Reason: ${message.reason || 'Unknown error'}</p>`;
+    if (message.userEmail) {
+      try {
+        await sendMail({ to: message.userEmail, subject, text, html });
+        console.log('Confirmation email sent to', message.userEmail);
+      } catch (err) {
+        console.error('Error sending confirmation email:', err.message);
+      }
+    } else {
+      console.warn('No userEmail provided on message; skipping email');
+    }
+  }
 }
 
 app.use('/api/auth', authRoutes);
