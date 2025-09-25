@@ -18,6 +18,20 @@ services:
     depends_on:
       - mongo-db
       - rabbitmq
+    environment:
+      # Database
+      MONGO_USERNAME: admin
+      MONGO_PASSWORD: admin
+      MONGO_DB_NAME: userdb
+      # Auth
+      JWT_SECRET: supersecretjwt
+      # SMTP / Email
+      SMTP_HOST: smtp.gmail.com
+      SMTP_PORT: 587
+      SMTP_SECURE: "false"
+      SMTP_USER: "offical.saurabhsingh@gmail.com"
+      SMTP_PASS: "Saurabh2004"
+      MAIL_FROM: "Your Store <no-reply@example.com>"
 
   product-service:
     # Image
@@ -39,9 +53,16 @@ services:
       - "1236:1236"
     volumes:
       - ./order-service:/app
-    depends_on:
+    depends_on: 
       - mongo-db
       - rabbitmq
+    environment:
+      # Database
+      MONGO_USERNAME: admin
+      MONGO_PASSWORD: admin
+      MONGO_DB_NAME: bu-ecomm-orders
+      # Auth (used for verifying incoming tokens)
+      JWT_SECRET: supersecretjwt
 
   mongo-db:
     image: mongo:latest
