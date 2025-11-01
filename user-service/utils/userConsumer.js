@@ -1,5 +1,5 @@
 const amqp = require('amqplib');
-
+const logger = require('./logger');
 async function consumeOrders(params) {
     try {
         // Step 1: Connect to RabbitMQ server
@@ -15,15 +15,18 @@ async function consumeOrders(params) {
         });
         // durable: true ensures that the queue will survive a broker restart
 
-        console.log("Waiting for messages in queue:", queue);
+        // console.log("Waiting for messages in queue:", queue);
+        logger.info("Waiting for messages in queue:", queue);
         
         // Step 4: Consume messages from the queue
         channel.consume(queue, (msg) => {
             if(msg !== null) {
                 const order = JSON.parse(msg.content.toString());
-                console.log("Received order from queue:", order);
+                // console.log("Received order from queue:", order);
+                logger.info("Received order from queue:", order);
                 
-                console.log("Sending confirmation email to user:", order.userId);
+                // console.log("Sending confirmation email to user:", order.userId);
+                logger.info("Sending confirmation email to user:", order.userId);
 
                 // Acknowledge that the message has been processed and remove it from the queue
                 channel.ack(msg);
@@ -31,7 +34,8 @@ async function consumeOrders(params) {
         });
 
     } catch (error) {
-        console.error("Error in consuming orders:", error);
+        //console.error("Error in consuming orders:", error);
+        logger.error("Error in consuming orders:", error);
     }
 }
 

@@ -1,5 +1,6 @@
 const jwt = require("jsonwebtoken");
 const User = require("../model/User");
+const logger = require('../utils/logger');
 
 // Protect Routes
 exports.protect = async (req, res, next) => {
@@ -25,7 +26,8 @@ exports.protect = async (req, res, next) => {
         req.user = user;
         next();
     } catch(error) {
-        console.error(error);
+        // console.error(error);
+        logger.error(error);
         res.status(401).json({
             message: 'Error while validating token...'
         })

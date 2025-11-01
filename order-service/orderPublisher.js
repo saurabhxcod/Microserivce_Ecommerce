@@ -1,4 +1,5 @@
 const amqp = require('amqplib');
+const logger = require('./utils/logger');
 
 async function publishOrder(order) {
     try {
@@ -17,7 +18,8 @@ async function publishOrder(order) {
 
         // Step 4: Send the message to the queue
         channel.sendToQueue(queue, Buffer.from(JSON.stringify(order)));
-        console.log("Order published to queue:", order);
+        // console.log("Order published to queue:", order);
+        logger.info("Order published to queue:", order);
 
         // Step 5: Close the connection and channel
         setTimeout(() => {
@@ -25,6 +27,7 @@ async function publishOrder(order) {
             connection.close();
         }, 500);
     } catch (error) {
-        console.error("Error in publishing order:", error);
+        // console.error("Error in publishing order:", error);
+        logger.error("Error in publishing order:", error);
     }
 }

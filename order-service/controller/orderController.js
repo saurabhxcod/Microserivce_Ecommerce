@@ -1,6 +1,7 @@
 const Order = require("../model/Order");
 const axios = require('axios');
 const {publishMessage} = require('../utils/rabbitMQ');
+const logger = require('../utils/logger');
 // const Product = require("../../product-service/model/Product");
 
 const placeOrder = async (req, res) => {
@@ -13,9 +14,11 @@ const placeOrder = async (req, res) => {
             const response = await axios.get(`http://product-service:1235/api/products/getProduct/${products[i].productId}`);
             const product = response.data;
             if(!product) {
+                logger.error('Product not found');
                 return res.status(404).json({message: 'Product not found'});
             }
             if(product.stock < products[i].quantity) {
+                logger.error(`Insufficient stock for product ${product.name}`);
                 return res.status(400).json({message: `Insufficient stock for product ${product.name}`});
             }
             const price = product.price * products[i].quantity;
@@ -46,7 +49,7 @@ const placeOrder = async (req, res) => {
 
         res.status(201).json({message: 'Order placed successfully...', order: newOrder});
     } catch (error) {
-        console.log("Error while placing order:",error);
+        logger.error("Error while placing order:",error);
         try {
             await publishMessage('orderQueue', {
                 type: 'ORDER_RESULT',
@@ -56,7 +59,7 @@ const placeOrder = async (req, res) => {
                 userEmail: req.user?.email
             });
         } catch (pubErr) {
-            console.error('Failed to publish failure event:', pubErr.message);
+            logger.error('Failed to publish failure event:', pubErr.message);
         }
         res.status(500).json({message: 'Failed to place order', error});
     }

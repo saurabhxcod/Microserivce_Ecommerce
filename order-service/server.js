@@ -3,6 +3,7 @@ const app = express();
 const orderRoutes = require('./routes/orderRoutes');
 const PORT = process.env.PORT || 1236;
 const connectDB = require('./config/db');
+const logger = require('./utils/logger');
 
 connectDB();
 const { consumeMessage } = require('./utils/rabbitMQ');
@@ -12,10 +13,10 @@ app.use(express.json());
 app.use('/api/orders', orderRoutes);
 
 consumeMessage("orderQueue", async (msg) => {
-    console.log("📩 Received order message:", msg);
-    console.log(`Sending notification to user ${msg.userId} for order ${msg.orderId}`);
+    logger.info("📩 Received order message:", msg);
+    logger.info(`Sending notification to user ${msg.userId} for order ${msg.orderId}`);
 });
 
 app.listen(PORT, () => {
-  console.log(`Order service is running on port ${PORT}`);
+  logger.info(`Order service is running on port ${PORT}`);
 });

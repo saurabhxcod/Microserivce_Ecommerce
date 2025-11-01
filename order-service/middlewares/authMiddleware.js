@@ -1,4 +1,5 @@
 const jwt = require("jsonwebtoken");
+const logger = require('../utils/logger');
 
 exports.protect = async (req, res, next) => {
     try {
@@ -8,6 +9,7 @@ exports.protect = async (req, res, next) => {
         }
 
         if (!token) {
+            logger.error('Not authorized');
             return res.status(401).json({ message: 'Not authorized' });
         }
 
@@ -16,7 +18,7 @@ exports.protect = async (req, res, next) => {
         req.user = { id: decoded.id, email: decoded.email, role: decoded.role };
         next();
     } catch (error) {
-        console.error('Auth error:', error.message);
+        logger.error('Auth error:', error.message);
         res.status(401).json({ message: 'Error while validating token...' });
     }
 };

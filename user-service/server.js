@@ -1,5 +1,6 @@
 const express = require('express');
 const dotenv = require('dotenv');
+const logger = require('./utils/logger');
 dotenv.config();
 
 const app = express();
@@ -15,7 +16,8 @@ app.use(express.json());
 const { sendMail } = require('./utils/mailer');
 
 async function notifyUser(message) {
-  console.log("User service received order:", message);
+  // console.log("User service received order:", message);
+  logger.info("User service received order:", message);
   if (message.type === 'ORDER_RESULT') {
     const subject = message.status === 'SUCCESS' ? 'Your order was placed successfully' : 'Your order failed';
     const text = message.status === 'SUCCESS'
@@ -27,12 +29,15 @@ async function notifyUser(message) {
     if (message.userEmail) {
       try {
         await sendMail({ to: message.userEmail, subject, text, html });
-        console.log('Confirmation email sent to', message.userEmail);
+        // console.log('Confirmation email sent to', message.userEmail);
+        logger.info('Confirmation email sent to', message.userEmail);
       } catch (err) {
-        console.error('Error sending confirmation email:', err.message);
+        // console.error('Error sending confirmation email:', err.message);
+        logger.error('Error sending confirmation email:', err.message);
       }
     } else {
-      console.warn('No userEmail provided on message; skipping email');
+      // console.warn('No userEmail provided on message; skipping email');
+      logger.warn('No userEmail provided on message; skipping email');
     }
   }
 }
@@ -46,5 +51,6 @@ app.use('/api/auth', authRoutes);
 })();
 
 app.listen(PORT, () => {
-  console.log(`User service is running on port ${PORT}`);
+  // console.log(`User service is running on port ${PORT}`);
+  logger.info(`User service is running on port ${PORT}`);
 });

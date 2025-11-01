@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const logger = require('../utils/logger');
 const bcrypt = require("bcrypt");
 
 const userSchema = new mongoose.Schema({
@@ -50,7 +51,8 @@ userSchema.pre('save', async function(next) {
         this.password = await bcrypt.hash(this.password, salt);
         next();
     } catch (error) {
-        console.error('Error hashing password:', error);
+        // console.error('Error hashing password:', error);
+        logger.error('Error hashing password:', error);
         next(error);
     }
 });
@@ -59,7 +61,8 @@ userSchema.methods.comparePassword = async function(candidatePassword) {
     try {
         return await bcrypt.compare(candidatePassword, this.password);
     } catch (error) {
-        console.error('Error comparing password:', error);
+        //console.error('Error comparing password:', error);
+        logger.error('Error comparing password:', error);
         throw error;
     }
 };

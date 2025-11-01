@@ -1,4 +1,5 @@
 const amqp = require('amqplib');
+const logger = require('./logger');
 let connection = null;
 let channel = null;
 
@@ -18,11 +19,14 @@ async function connectRabbitMQ(retries = 5, interval = 5000) {
 
             await channel.assertExchange("orderExchange", "fanout", { durable: true });
 
-            console.log("Connected to RabbitMQ");
+            // console.log("Connected to RabbitMQ");
+            logger.info("Connected to RabbitMQ");
             return channel;
         } catch (err) {
-            console.error(`RabbitMQ connection failed (Attempt ${i + 1}):`, err.message);
-            console.log(`Retrying in ${interval / 1000} seconds...`);
+            // console.error(`RabbitMQ connection failed (Attempt ${i + 1}):`, err.message);
+            logger.error(`RabbitMQ connection failed (Attempt ${i + 1}):`, err.message);
+            // console.log(`Retrying in ${interval / 1000} seconds...`);
+            logger.info(`Retrying in ${interval / 1000} seconds...`);
             await new Promise((res) => setTimeout(res, interval));
         }
     }
@@ -40,9 +44,11 @@ async function publishMessage(queue, message) {
         });
         // Step 4: Send the message to the queue
         channel.sendToQueue(queue, Buffer.from(JSON.stringify(message)));
-        console.log("Order published to queue:", message);
+        // console.log("Order published to queue:", message);
+        logger.info("Order published to queue:", message);
     } catch (error) {
-        console.error("Error in publishing order:", error);
+        // console.error("Error in publishing order:", error);
+        logger.error("Error in publishing order:", error);
     }
 }
 
@@ -57,14 +63,16 @@ async function consumeMessage(queue, callback) {
 
         await channel.bindQueue(queue, "orderExchange", "");
 
-        console.log("Waiting for messages in productQueue...");
+        // console.log("Waiting for messages in productQueue...");
+        logger.info("Waiting for messages in productQueue...");
 
          // Assert queue BEFORE consuming
         // await channel.assertQueue(queue, { durable: true });
         channel.consume(queue, async (msg) => {
             if(msg !== null) {
                 const message = JSON.parse(msg.content.toString());
-                console.log("Received message from queue:", message);
+                // console.log("Received message from queue:", message);
+                logger.info("Received message from queue:", message);
                 
                 await callback(message);
 
@@ -72,9 +80,11 @@ async function consumeMessage(queue, callback) {
                 channel.ack(msg);
             }
         });
-        console.log("Waiting for messages in queue:", queue);
+        // console.log("Waiting for messages in queue:", queue);
+        logger.info("Waiting for messages in queue:", queue);
     } catch (error) {
-        console.error("Error in consuming orders:", error);
+        // console.error("Error in consuming orders:", error);
+        logger.error("Error in consuming orders:", error);
     }
 }
 

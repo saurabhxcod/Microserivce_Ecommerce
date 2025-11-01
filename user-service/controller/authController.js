@@ -1,6 +1,7 @@
 const User = require('../model/User');
 const jwt = require('jsonwebtoken');
 const { JWT_SECRET } = require('../utils/config');
+const logger = require('../utils/logger');
 
 const createToken = (user) => {
     return jwt.sign({
@@ -27,7 +28,8 @@ exports.registerUser = async(req, res) => {
 
         res.status(201).json({ message: 'User registered successfully', user: newUser });
     } catch (error) {
-        console.error('Error registering user:', error);
+        // console.error('Error registering user:', error);
+        logger.error('Error registering user:', error);
         res.status(500).json({ message: 'Error registering User' });
     }
 }
@@ -66,7 +68,8 @@ exports.loginUser = async(req, res) => {
         });
 
     } catch (error) {
-        console.error(error);
+        // console.error(error);
+        logger.error(error);
         res.status(500).json({
             status: 'error',
             message: 'Error while login',
