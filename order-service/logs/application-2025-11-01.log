@@ -1,0 +1,15 @@
+{"level":"info","message":"Order service is running on port 1236","timestamp":"2025-11-01T18:57:13.091Z"}
+{"level":"info","message":"MongoDB connected successfully","timestamp":"2025-11-01T18:57:13.167Z"}
+{"level":"info","message":"Connected to RabbitMQ","timestamp":"2025-11-01T18:57:13.198Z"}
+{"level":"info","message":"Waiting for messages in orderQueue...","timestamp":"2025-11-01T18:57:13.218Z"}
+{"level":"info","message":"Waiting for messages in queue:","timestamp":"2025-11-01T18:57:13.219Z"}
+{"level":"info","message":"Order service is running on port 1236","timestamp":"2025-11-01T18:59:40.526Z"}
+{"level":"info","message":"MongoDB connected successfully","timestamp":"2025-11-01T18:59:40.587Z"}
+{"level":"info","message":"Connected to RabbitMQ","timestamp":"2025-11-01T18:59:40.617Z"}
+{"level":"info","message":"Waiting for messages in orderQueue...","timestamp":"2025-11-01T18:59:40.622Z"}
+{"level":"info","message":"Waiting for messages in queue:","timestamp":"2025-11-01T18:59:40.623Z"}
+{"level":"info","message":"Order service is running on port 1236","timestamp":"2025-11-01T19:01:49.904Z"}
+{"level":"info","message":"MongoDB connected successfully","timestamp":"2025-11-01T19:01:49.955Z"}
+{"level":"info","message":"Connected to RabbitMQ","timestamp":"2025-11-01T19:01:49.991Z"}
+{"level":"info","message":"Waiting for messages in orderQueue...","timestamp":"2025-11-01T19:01:50.010Z"}
+{"level":"info","message":"Waiting for messages in queue:","timestamp":"2025-11-01T19:01:50.011Z"}

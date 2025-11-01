@@ -1,0 +1,15 @@
+{"level":"info","message":"Product service is running on port 1235","timestamp":"2025-11-01T18:57:14.483Z"}
+{"level":"info","message":"MongoDB connected successfully","timestamp":"2025-11-01T18:57:14.528Z"}
+{"level":"info","message":"Connected to RabbitMQ","timestamp":"2025-11-01T18:57:14.558Z"}
+{"level":"info","message":"Waiting for messages in productQueue...","timestamp":"2025-11-01T18:57:14.574Z"}
+{"level":"info","message":"Waiting for messages in queue:","timestamp":"2025-11-01T18:57:14.575Z"}
+{"level":"info","message":"Product service is running on port 1235","timestamp":"2025-11-01T18:59:38.127Z"}
+{"level":"info","message":"MongoDB connected successfully","timestamp":"2025-11-01T18:59:38.224Z"}
+{"level":"info","message":"Connected to RabbitMQ","timestamp":"2025-11-01T18:59:38.248Z"}
+{"level":"info","message":"Waiting for messages in productQueue...","timestamp":"2025-11-01T18:59:38.257Z"}
+{"level":"info","message":"Waiting for messages in queue:","timestamp":"2025-11-01T18:59:38.259Z"}
+{"level":"info","message":"Product service is running on port 1235","timestamp":"2025-11-01T19:01:47.373Z"}
+{"level":"info","message":"MongoDB connected successfully","timestamp":"2025-11-01T19:01:47.423Z"}
+{"level":"info","message":"Connected to RabbitMQ","timestamp":"2025-11-01T19:01:47.456Z"}
+{"level":"info","message":"Waiting for messages in productQueue...","timestamp":"2025-11-01T19:01:47.472Z"}
+{"level":"info","message":"Waiting for messages in queue:","timestamp":"2025-11-01T19:01:47.474Z"}
