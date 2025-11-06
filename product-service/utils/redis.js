@@ -13,7 +13,7 @@ function setupRedis() {
                 return delay;
             },
             enableReadyCheck: true,
-            connectTimeout: 10000,           // Add connection timeout
+            connectTimeout: 10000,           
         });
 
         client.on("connect", () => logger.info("Redis connected successfully"));
@@ -24,7 +24,7 @@ function setupRedis() {
         // Initial connection
         client.connect().catch(err => {
             logger.error("Redis initial connection failed:", err.message);
-            throw err; // Rethrow to handle it in the calling code
+            throw err; 
         });
     }
     return client;
