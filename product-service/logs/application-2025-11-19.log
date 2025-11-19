@@ -1,0 +1,23 @@
+{"level":"info","message":"Product service is running on port 1235","timestamp":"2025-11-19T13:35:47.734Z"}
+{"level":"info","message":"MongoDB connected successfully","timestamp":"2025-11-19T13:35:47.835Z"}
+{"level":"info","message":"Connected to RabbitMQ","timestamp":"2025-11-19T13:35:47.863Z"}
+{"level":"info","message":"Waiting for messages in productQueue...","timestamp":"2025-11-19T13:35:47.899Z"}
+{"level":"info","message":"Waiting for messages in queue:","timestamp":"2025-11-19T13:35:47.902Z"}
+{"0":{"__v":0,"_id":"690c358e433c7f4329dddee0","brand":"Apple","category":"Electronics","description":"Water-resistant smartwatch with heart rate monitoring, GPS, and customizable watch faces.","imageUrl":"https://example.com/images/smartwatch.jpg","name":"Smartwatch","price":4999,"rating":{"average":0,"count":0},"stock":30},"1":{"__v":0,"_id":"690c35b6433c7f4329dddee2","brand":"Apple","category":"Electronics","description":"Water-resistant smartwatch with heart rate monitoring, GPS, and customizable watch faces.","imageUrl":"https://example.com/images/smartwatch.jpg","name":"MacBook","price":900000,"rating":{"average":0,"count":0},"stock":30},"level":"info","message":"Products fetched successfully:","timestamp":"2025-11-19T13:36:48.301Z"}
+{"level":"info","message":"Product service is running on port 1235","timestamp":"2025-11-19T13:58:14.199Z"}
+{"level":"info","message":"MongoDB connected successfully","timestamp":"2025-11-19T13:58:14.280Z"}
+{"level":"info","message":"Connected to RabbitMQ","timestamp":"2025-11-19T13:58:14.306Z"}
+{"level":"info","message":"Waiting for messages in productQueue...","timestamp":"2025-11-19T13:58:14.314Z"}
+{"level":"info","message":"Waiting for messages in queue:","timestamp":"2025-11-19T13:58:14.316Z"}
+{"address":"127.0.0.1","code":"ECONNREFUSED","errno":-111,"level":"error","message":"Redis connection error: connect ECONNREFUSED 127.0.0.1:6379","port":6379,"stack":"Error: connect ECONNREFUSED 127.0.0.1:6379\n    at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1611:16)","syscall":"connect","timestamp":"2025-11-19T13:58:47.842Z"}
+{"level":"info","message":"Product service is running on port 1235","timestamp":"2025-11-19T14:03:22.587Z"}
+{"level":"info","message":"MongoDB connected successfully","timestamp":"2025-11-19T14:03:22.643Z"}
+{"level":"info","message":"Connected to RabbitMQ","timestamp":"2025-11-19T14:03:22.667Z"}
+{"level":"info","message":"Waiting for messages in productQueue...","timestamp":"2025-11-19T14:03:22.673Z"}
+{"level":"info","message":"Waiting for messages in queue:","timestamp":"2025-11-19T14:03:22.674Z"}
+{"level":"info","message":"Product service is running on port 1235","timestamp":"2025-11-19T14:04:47.229Z"}
+{"level":"info","message":"MongoDB connected successfully","timestamp":"2025-11-19T14:04:47.298Z"}
+{"level":"info","message":"Connected to RabbitMQ","timestamp":"2025-11-19T14:04:47.327Z"}
+{"level":"info","message":"Waiting for messages in productQueue...","timestamp":"2025-11-19T14:04:47.332Z"}
+{"level":"info","message":"Waiting for messages in queue:","timestamp":"2025-11-19T14:04:47.333Z"}
+{"level":"info","message":"Received message from queue:","reason":"socket hang up","status":"FAILURE","timestamp":"2025-11-19T14:04:47.337Z","type":"ORDER_RESULT","userEmail":"offical.utkarshsingh@gmail.com","userId":"690c3a582839fef3f70465b7"}

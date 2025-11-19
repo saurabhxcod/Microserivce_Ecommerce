@@ -1,5 +1,5 @@
 const Redis = require("ioredis");
-const logger = require('./logger');
+
 let client;
 
 function setupRedis() {
@@ -13,18 +13,18 @@ function setupRedis() {
                 return delay;
             },
             enableReadyCheck: true,
-            connectTimeout: 10000,           
+            connectTimeout: 10000,           // Add connection timeout
         });
 
-        client.on("connect", () => logger.info("Redis connected successfully"));
-        client.on("error", (err) => logger.error("Redis connection error:", err));
-        client.on("close", () => logger.info("Redis connection closed"));
-        client.on("reconnecting", () => logger.info("Redis reconnecting..."));
+        client.on("connect", () => console.log("Redis connected successfully"));
+        client.on("error", (err) => console.error("Redis connection error:", err));
+        client.on("close", () => console.log("Redis connection closed"));
+        client.on("reconnecting", () => console.log("Redis reconnecting..."));
 
         // Initial connection
         client.connect().catch(err => {
-            logger.error("Redis initial connection failed:", err.message);
-            throw err; 
+            console.error("Redis initial connection failed:", err.message);
+            throw err; // Rethrow to handle it in the calling code
         });
     }
     return client;
